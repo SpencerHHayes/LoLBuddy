@@ -6,7 +6,7 @@ import config
 import sys
 from discord_webhook import DiscordWebhook
 
-# golbal variables
+# global variables
 api_key = config.api_key
 watcher = LolWatcher(api_key)
 my_region = 'na1'
@@ -67,5 +67,5 @@ while True:
             if '404' not in str(e):
                 print(e)
             continue
-    print("Sleeping for 10 seconds")
-    time.sleep(10)
+    print("Sleeping for 30 seconds")
+    time.sleep(30)

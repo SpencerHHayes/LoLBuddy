@@ -17,7 +17,8 @@ def list_players_from_game(g):
     fin = []
     for p in g['participants']:
         user = watcher.summoner.by_name(my_region, p['summonerName'])
-        p['lane'] = watcher.match.matchlist_by_account(my_region, user['accountId'])['matches'][0]['lane']
+        # Lane metric is a bit strange
+        # p['lane'] = watcher.match.matchlist_by_account(my_region, user['accountId'])['matches'][0]['lane']
         league = watcher.league.by_summoner(my_region, p['summonerId'])
         if not league:
             p['Ranked Solo 5x5'] = "N/A"

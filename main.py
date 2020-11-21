@@ -66,6 +66,6 @@ while True:
         except Exception as e:
             if '404' not in str(e):
                 print(e)
-            continue
+            
     print("Sleeping for 30 seconds")
     time.sleep(30)

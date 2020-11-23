@@ -9,7 +9,7 @@ from discord_webhook import DiscordWebhook
 # global variables
 api_key = config.api_key
 watcher = LolWatcher(api_key)
-my_region = 'na1'
+my_region = config.region
 watched_users = config.userlist
 known_games = []
 
@@ -43,14 +43,14 @@ def get_win_chance(p):
     team1_win_ratio_average = 0
     team2_win_ratio_average = 0
 
-    for i in p[:5]:
+    for i in p[:half]:
         if i['Solo Win Ratio'] == 'N/A':
             team1_win_ratio_average = team1_win_ratio_average + .75
             continue
         team1_win_ratio_average = team1_win_ratio_average + float(i['Solo Win Ratio'])
     team1_win_ratio_average = team1_win_ratio_average / 5
 
-    for i in p[5:]:
+    for i in p[half:]:
         if i['Solo Win Ratio'] == 'N/A':
             team2_win_ratio_average = team2_win_ratio_average + .75
             continue
@@ -69,6 +69,7 @@ while True:
             if game['gameId'] not in known_games:
                 known_games.append(game["gameId"])
                 players = list_players_from_game(game)
+                half = len(players)//2
                 winner = get_win_chance(players)
                 df = pd.DataFrame(players)
                 df.drop(['teamId', 'spell1Id', 'spell2Id', 'championId', 'profileIconId', 'bot', 'summonerId', 'gameCustomizationObjects', 'perks'], axis=1, inplace=True)
